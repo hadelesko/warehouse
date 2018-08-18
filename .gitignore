@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -24,3 +25,28 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+=======
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+>>>>>>> 0105b3f2261d0ce743e93f1e994c16b526f49124
