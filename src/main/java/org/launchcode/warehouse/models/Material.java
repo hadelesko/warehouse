@@ -1,5 +1,6 @@
 package org.launchcode.warehouse.models;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
