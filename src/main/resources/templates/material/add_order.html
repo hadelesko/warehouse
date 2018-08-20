@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+<form method ="post"  action="/material/orders/add_order" >
+    <label th:for="${material.name}"></label>
+    <select th:field="*{material.name}">
+        <option  th:each="material:${materials}"></option>
+        <option value=${material} selected></option>
+    </select>
+    <input type="text" th:text="${material.name}"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+
+<form method="post" style="max-width:600px;" th:object="${material}">
+    <div class="material">
+        <label th:for="name">Name</label>
+        <input class="form-control" th:field="*{name}" />
+        <span th:errors="*{name}" class="error"></span>
+    </div>
+
+    <div class="material">
+        <label th:for="dispo_quantity">Dispo_quantity</label>
+        <input  type="hidden" class="form-control" th:field="*{dispo_quantity}" />
+    </div>
+
+    <div class="material">
+        <label th:for="initialstock">Initialstock</label>
+        <input  type="hidden" class="form-control" th:field="*{initialstock}"/>
+    </div>
+
+    <div class="material">
+        <label th:for="received_quantity">Received_quantity</label>
+        <input  type="hidden" class="form-control" th:field="*{received_quantity}"/>
+    </div>
+
+    <div class="material">
+        <label th:for="eturned_quantity_on_delivery">Returned_quantity_on_delivery</label>
+        <input  type="hidden" class="form-control" th:field="*{eturned_quantity_on_delivery}"/>
+    </div>
+
+
+
+</body>
+</html>

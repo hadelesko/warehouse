@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${materials} and ${materials.size()}">no material yet :(</p>
+
+
+<table class="table">
+
+    <tr>
+        <th>Materials</th>
+    </tr>
+    <tr th:each="material : ${materials}">
+        <li><a th:href="'material/'+${material.id}" th:object="${material}"></a></li>
+    </tr>
+</table>
+<a href="material/add">Add Material</a>
+</body>
+</html>
