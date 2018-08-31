@@ -1,7 +1,11 @@
 package org.launchcode.warehouse.controllers;
 
 import org.launchcode.warehouse.models.Material;
+import org.launchcode.warehouse.models.MaterialReception;
+import org.launchcode.warehouse.models.data.InternOrderDao;
 import org.launchcode.warehouse.models.data.MaterialDao;
+import org.launchcode.warehouse.models.data.ReceptionDao;
+import org.launchcode.warehouse.models.data.RetourDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +22,20 @@ public class MaterialController {
     @Autowired
     private MaterialDao materialDao;
 
+    @Autowired
+    private InternOrderDao internOrderDao;
+
+    @Autowired
+    private ReceptionDao receptionDao;
+
+    @Autowired
+    private RetourDao retourDao;
+
 
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("title", "Warehouse management");
-        return "index";
+        return "material/index";
 
     }
 
@@ -47,39 +60,22 @@ public class MaterialController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processaddmaterial(Model model,
-                                     @ModelAttribute @Valid Material material,
+                                     @ModelAttribute @Valid Material material, MaterialReception reception,
                                      Errors errors) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Insert a new Material");
             return "material/add";
         } else {
-            if (materialDao.findOne(material.getId()) == null) {
+            if (materialDao.findOne(material.getMaterial_id()).equals(material.getMaterial_id())){
+                //double dpq=material.getDispo_quantity+reception.getReceivedquantity;
+                material.setDispo_quantity(material.getDispo_quantity()+reception.getReceived_quantity());
                 materialDao.save(material);
-                return "redirect:materials";
+                return "redirect:material/materials";
             }else{
-                model.addAttribute("received_quantity", material.getReceived_quantity());
-              /*  model.addAttribute("dispo_stock",
-                        material.getDispo_quantity()
-                                + material.getReceived_quantity()
-                                - material.getOrderd_quantity()
-                                + material.getInitialstock()
-                                + material.getReturned_quantity_on_delivery()
-                                - material.getReturned_quantity_on_reception());*/
-                double dispostock=material.getDispo_quantity()
-                        +material.getReceived_quantity()
-                        -material.getOrderd_quantity()
-                        +material.getInitialstock()
-                        +material.getReturned_quantity_on_delivery()
-                        -material.getReturned_quantity_on_reception();
+                model.addAttribute("received_quantity", reception.getReceived_quantity());
 
-                //materialDao.save(material);
-                material.setDispo_quantity(dispostock);
                 materialDao.save(material);
-                return "redirect:materials";
-
-
-
-
-        }
+                return "redirect:material/materials";
+                        }
     }}}

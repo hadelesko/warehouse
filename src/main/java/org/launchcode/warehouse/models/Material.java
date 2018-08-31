@@ -1,8 +1,6 @@
 package org.launchcode.warehouse.models;
 
 
-import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,53 +11,48 @@ public class Material {
 
     @Id
     @GeneratedValue
-    private  int id ;
+    private  int material_id ;
 
     @NotNull(message="not empty")
     private  String name;
 
-    //@NotNull(message="not empty")
-    //@Size(min=10, max=120, message="At least 10 Characters and not more than 120")
+    @NotNull(message="not empty")
+    @Size(min=10, max=120, message="At least 10 Characters and not more than 120")
     private  String description;
 
-    //@NotNull(message="not empty")
-    //@Range(min=0, message="Not negative")
-    private  double initialstock;
-
-
-    //@NotNull(message="not empty")
-    //@Range(min=0, message="Not negative")
-    private  double orderd_quantity;
-
-
-
-    @NotNull(message="not empty")
-    @Range(min=0, message="Not negative")
-    private  double received_quantity;
-
-    //@NotNull(message="not empty")
-    //@Range(min=0, message="Not negative")
-    private  double returned_quantity_on_delivery;
-
-    //@NotNull(message="not empty")
-    //Range(min=0, message="Not negative")
-    private  double returned_quantity_on_reception;
-
-    //@NotNull(message="not empty")
-    //@Range(min=0, message="Not negative")
     private  double dispo_quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private MaterialOrder materialOrder;
+
+    @ManyToOne//(mappedBy = "material_id")
+    @JoinColumn(name = "reception_id")  //
+    private MaterialReception materialReception;
+
+    @ManyToOne
+    @JoinColumn(name="retour_id")
+    private Retour retour;
+
 
 
     public Material(){
 
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Material [id=" + getMaterial_id() + ", name=" + getName() +", description="+ getDescription() +", dispo_quantity="
+                + getDispo_quantity() + "]";
     }
 
-    public void setId(int id) {
-        this.id = id;
+
+    public int getMaterial_id() {
+        return material_id;
+    }
+
+    public void setMaterial_id(int material_id) {
+        this.material_id = material_id;
     }
 
     public String getName() {
@@ -78,46 +71,6 @@ public class Material {
         this.description = description;
     }
 
-    public double getInitialstock() {
-        return initialstock;
-    }
-
-    public void setInitialstock(double initialstock) {
-        this.initialstock = initialstock;
-    }
-
-    public double getOrderd_quantity() {
-        return orderd_quantity;
-    }
-
-    public void setOrderd_quantity(double orderd_quantity) {
-        this.orderd_quantity = orderd_quantity;
-    }
-
-    public double getReceived_quantity() {
-        return received_quantity;
-    }
-
-    public void setReceived_quantity(double received_quantity) {
-        this.received_quantity = received_quantity;
-    }
-
-    public double getReturned_quantity_on_delivery() {
-        return returned_quantity_on_delivery;
-    }
-
-    public void setReturned_quantity_on_delivery(double returned_quantity_on_delivery) {
-        this.returned_quantity_on_delivery = returned_quantity_on_delivery;
-    }
-
-    public double getReturned_quantity_on_reception() {
-        return returned_quantity_on_reception;
-    }
-
-    public void setReturned_quantity_on_reception(double returned_quantity_on_reception) {
-        this.returned_quantity_on_reception = returned_quantity_on_reception;
-    }
-
     public double getDispo_quantity() {
         return dispo_quantity;
     }
@@ -125,15 +78,34 @@ public class Material {
     public void setDispo_quantity(double dispo_quantity) {
         this.dispo_quantity = dispo_quantity;
     }
-    public double dispo_stock(){
-        double disp_quantity= getReceived_quantity()
-                -getOrderd_quantity()
-                +getInitialstock()
-                +getReturned_quantity_on_delivery()
-                -getReturned_quantity_on_reception();
-        return disp_quantity;
 
+    public MaterialOrder getMaterialOrder() {
+        return materialOrder;
     }
 
+    public void setMaterialOrder(MaterialOrder materialOrder) {
+        this.materialOrder = materialOrder;
+    }
 
-}
+    public MaterialReception getMaterialReception() {
+        return materialReception;
+    }
+
+    public void setMaterialReception(MaterialReception materialReception) {
+        this.materialReception = materialReception;
+    }
+
+    public Retour getRetour() {
+        return retour;
+    }
+
+    public void setRetour(Retour retour) {
+        this.retour = retour;
+    }
+
+    public double updateafter(double quantity){
+        if(materialReception.getReceived_quantity()>=0||retour.getRetour_quantity()>=0 || materialOrder.getOrdered_quantity()>=0) {
+            quantity = getDispo_quantity() + materialReception.getReceived_quantity() + retour.getRetour_quantity() - materialOrder.getOrdered_quantity();
+        }
+        return quantity;
+    }}

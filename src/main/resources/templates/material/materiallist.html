@@ -17,7 +17,7 @@
         <th>Materials</th>
     </tr>
     <tr th:each="material : ${materials}">
-        <li><a th:href="'material/'+${material.id}" th:text="${material.name}"></a></li>
+        <li><a th:href="'material/'+${material.id}" th:text="${material}"></a></li>
     </tr>
 </table>
 <b><a href="material/add">Add Material</a> |
