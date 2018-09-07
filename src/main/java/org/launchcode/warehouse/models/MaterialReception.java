@@ -13,6 +13,7 @@ public class MaterialReception {
     private int receptionId;
 
     @OneToMany//(mappedBy = "material_id")
+    @JoinColumn(name = "id")
     private List<Material> receivedmaterial;
 
     @NotNull(message = "not empty")

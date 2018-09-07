@@ -12,7 +12,19 @@ import java.util.List;
 @Transactional
 public interface MaterialDao extends CrudRepository<Material,Integer> {
 
-    List<Material> findByname(String name);
+   //Material findByname(String name);
+
+
+    //Material findOne(String String);
+
+    //void addnewmaterial(Material material);
+
+    //void update(Material material);
+
+
+
+    //void save(Material material);
+
 
 
 }

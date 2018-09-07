@@ -4,6 +4,7 @@ package org.launchcode.warehouse.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Entity
@@ -11,7 +12,9 @@ public class Material {
 
     @Id
     @GeneratedValue
-    private  int material_id ;
+    private  int id;
+    //private  int material_id ;
+
 
     @NotNull(message="not empty")
     private  String name;
@@ -22,15 +25,15 @@ public class Material {
 
     private  double dispo_quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
+    @ManyToOne//(mappedBy = "orderid")
+    @JoinColumn(name = "orderid")
     private MaterialOrder materialOrder;
 
-    @ManyToOne//(mappedBy = "material_id")
+    @ManyToOne//(mappedBy = "receptionId")
     @JoinColumn(name = "reception_id")  //
     private MaterialReception materialReception;
 
-    @ManyToOne
+    @ManyToOne//(mappedBy="retour_id")
     @JoinColumn(name="retour_id")
     private Retour retour;
 
@@ -38,21 +41,15 @@ public class Material {
 
     public Material(){
 
+
     }
 
-    @Override
-    public String toString() {
-        return "Material [id=" + getMaterial_id() + ", name=" + getName() +", description="+ getDescription() +", dispo_quantity="
-                + getDispo_quantity() + "]";
+    public int getId() {
+        return id;
     }
 
-
-    public int getMaterial_id() {
-        return material_id;
-    }
-
-    public void setMaterial_id(int material_id) {
-        this.material_id = material_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -103,9 +100,31 @@ public class Material {
         this.retour = retour;
     }
 
-    public double updateafter(double quantity){
-        if(materialReception.getReceived_quantity()>=0||retour.getRetour_quantity()>=0 || materialOrder.getOrdered_quantity()>=0) {
-            quantity = getDispo_quantity() + materialReception.getReceived_quantity() + retour.getRetour_quantity() - materialOrder.getOrdered_quantity();
-        }
-        return quantity;
-    }}
+
+//    @Override
+//    public String toString() {
+//        return "Material [id=" + getMaterial_id() + ", name=" + getName() +", description="+ getDescription() +", dispo_quantity="
+//                + getDispo_quantity() + "]";
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "Material [id=" + getId() + ", name=" + getName() +", description="+ getDescription() +", dispo_quantity="
+//                + getDispo_quantity() + "]";
+//    }
+
+
+//    public int getMaterial_id() {
+//        return material_id;
+//    }
+//
+//    public void setMaterial_id(int material_id) {
+//        this.material_id = material_id;
+//    }
+
+//    public double updateafter(){
+//        if(materialReception.getReceived_quantity()>=0||retour.getRetour_quantity()>=0 || materialOrder.getOrdered_quantity()>=0) {
+//            dispo_quantity = getDispo_quantity() + materialReception.getReceived_quantity() + retour.getRetour_quantity() - materialOrder.getOrdered_quantity();
+//        }
+//        return dispo_quantity;}
+    }

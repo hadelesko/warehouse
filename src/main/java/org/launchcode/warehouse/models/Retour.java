@@ -1,9 +1,6 @@
 package org.launchcode.warehouse.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -13,6 +10,7 @@ public class Retour {
     private int retour_id;
 
     @OneToMany//(mappedBy="material_id")
+    @JoinColumn(name = "id")
     private List<Material> retournedmaterial;
 
     private double retour_quantity;

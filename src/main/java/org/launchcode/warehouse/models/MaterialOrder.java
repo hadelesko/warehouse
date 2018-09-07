@@ -8,14 +8,16 @@ import java.util.List;
 
 @Entity
 public class MaterialOrder {
-    @Basic
+    //@Basic
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @Id
     @GeneratedValue
     private int orderid;
 
-    @OneToMany//(mappedBy="material_id")//One Material can be ordered several time==one to many relation type
+    @OneToMany
+    @JoinColumn(name = "id")//One Material can be ordered several time==one to many relation type
     private List<Material> materials;
 
     @NotNull(message ="can not be empty or less than null")

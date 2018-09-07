@@ -5,7 +5,8 @@
     <h1 th:text="${title}">Default Title</h1>
 </head>
 <body>
-<form method="post" style="max-width:600px;" th:object="${material}">
+<!--<form method="post" style="max-width:600px;" th:object="${material}" action="add">-->
+<form  method="POST" style="max-width:600px;" th:object="${material}" action="add">
     <div class="material">
         <label th:for="name">Name</label>
         <div>
@@ -31,9 +32,43 @@
         </div>
     </div>
 
+    <div class="material">
+        <label th:for="materialOrder">Material order</label>
+        <div>
+            <input class="form-control" th:field="*{materialOrder}"/>
+            <span th:errors="*{materialOrder}" class="error"></span>
+        </div>
+    </div>
+
+    <div class="material">
+        <label th:for="materialReception">Material reception</label>
+        <div>
+            <input class="form-control" th:field="*{materialReception}"/>
+            <span th:errors="*{materialReception}" class="error"></span>
+        </div>
+    </div>
+
+    <div class="material">
+        <label th:for="retour">Retour</label>
+        <div>
+            <input class="form-control" th:field="*{retour}"/>
+            <span th:errors="*{retour}" class="error"></span>
+        </div>
+    </div>
+
+<!--    <div class="form-group">
+        <label th:for="materialReception">Reception</label>
+        <select name="reception_id">
+            <option th:each="reception : ${receptions}"
+                    th:text="${reception.received_quantity}"
+                    th:value="${reception.reception_id}"></option>
+        </select>
+    </div>-->
+
+    <!--<input type="hidden" name="reception_id" th:value="*{materialReception.reception_id}" />-->
+
     <input type="submit" value="Add Material"/>
 </form>
-
-
 </body>
 </html>
+
