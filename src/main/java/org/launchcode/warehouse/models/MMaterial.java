@@ -23,6 +23,11 @@ public class MMaterial {
     @ManyToOne  //Many locations can be used for the storing of "One" material
     private List<MatLocation> matLocations; // can be let blank if the material is newly received
 
+    @OneToMany // Suppose that one supplier can provide us several materials
+    private Msupplier msupplier;
+
+
+
     public MMaterial(){}
 
     public int getMat_id() {
@@ -73,6 +78,13 @@ public class MMaterial {
         this.matLocations = matLocations;
     }
 
+    public Msupplier getMsupplier() {
+        return msupplier;
+    }
+
+    public void setMsupplier(Msupplier msupplier) {
+        this.msupplier = msupplier;
+    }
 
     /*Extra method that will be devlopped in the class
     implementing the  interface MMaterialDao
@@ -84,4 +96,6 @@ public class MMaterial {
 
         matLocations.remove(location);
     }
+
+
 }

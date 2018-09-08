@@ -12,16 +12,42 @@ public class Managmat implements MMaterialDao{
     private List<MatLocation> matLocations;
 
     @Override
-    Iterable<MMaterial> getAll(){}
+    Iterable<MMaterial> getAll(){
+    return mMaterials;}
+
 
     @Override
-    Iterable<MMaterial> getbysupplier(String suppliername){}
+    Iterable<MMaterial> getbysupplier(int supplierId){
+
+    List<MMaterial>materialbysupplierId=new List<MMaterial>();
+        for(MMaterial mat:mMaterials) {
+            if(mat.getMsupplier()==supplierId){
+                materialbysupplierId.add(mat);
+            }
+            }
+            return materialbysupplierId;
+    }
+
+
 
     @Override
-    MMaterial getById(int id){}
+    MMaterial getById(int id){
+        for(MMaterial mat:mMaterials) {
+            if(mat.getMat_id()==id){
+                return mat;
+            } else{return null;
+        }
+
+    }}
 
     @Override
-    MMaterial getByname(String name){}
+    MMaterial getByname(String name){
+            for(MMaterial mat:mMaterials) {
+                if(mat.getMatname().equals(name)){
+                    return mat;
+                } else{return null;
+                }
+    }
 
 
     @Override
@@ -47,7 +73,7 @@ public class Managmat implements MMaterialDao{
     @Override
     public void relocateMaterial(MMaterial mMaterial){
             mMaterials.add(mMaterial);
-            
+
     }
 
     @Override
