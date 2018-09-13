@@ -1,16 +1,24 @@
 package org.launchcode.warehouse.models;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Map;
+
 @Entity
 public class MatLocation {
-    private int id;
 
-    @OneToMany  //One material in can be stored in more than one places in the warehouse(Chaotische Lagerungsstrategie)
-                // One Material can be found in different place in the warehouse to facilitate its access
-    @JoinColumn(name="w_Location") // This column will be shown in the table MMaterial
-    private MMaterial mMaterial;
+    @Id
+    @GeneratedValue
+    private int locationId;
+
+     //One material in can be stored in more than one places in the warehouse(Chaotische Lagerungsstrategie)
+     // One Material can be found in different place in the warehouse to facilitate its access
+    @OneToMany
+    @JoinColumn(name="material_locations") // This column will be shown in the table MMaterial
+    private List<MMaterial> materiallocations;
+    @OneToMany //One material  reception can be placed at different places in the warehouse or one order can be picked in different locations
+    @JoinColumn(name="flow_locations")
+    private List<Mat_Flow> flow_locations;
 
     private double quantity;
     /* to see the quantity available at each place to know where to go when receiving the picking
@@ -23,22 +31,30 @@ public class MatLocation {
 
     public MatLocation(){}
 
-    public int getId() {
-        return id;
+
+    public int getLocationId() {
+        return locationId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
     }
 
-    public MMaterial getmMaterial() {
-        return mMaterial;
+    public List<MMaterial> getMateriallocations() {
+        return materiallocations;
     }
 
-    public void setmMaterial(MMaterial mMaterial) {
-        this.mMaterial = mMaterial;
+    public void setMateriallocations(List<MMaterial> materiallocations) {
+        this.materiallocations = materiallocations;
     }
 
+    public List<Mat_Flow> getFlow_locations() {
+        return flow_locations;
+    }
+
+    public void setFlow_locations(List<Mat_Flow> flow_locations) {
+        this.flow_locations = flow_locations;
+    }
 
     public double getQuantity() {
         return quantity;

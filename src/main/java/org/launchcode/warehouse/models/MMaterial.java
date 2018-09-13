@@ -1,8 +1,10 @@
 package org.launchcode.warehouse.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class MMaterial {
     @Id
     @GeneratedValue
@@ -10,25 +12,19 @@ public class MMaterial {
     private String matname;
     private String description;
     private double stock; // Available quantity after eachflow
-    @OneToMany
-    @JoinColumn(name = "mat_id")
-    private Mat_Flow mat_Flow;
-    /*One flow activity can contain more than one material
-     example:One order from the production or reception from
-     supplier can contain  more than one different material
-     in the template this wil be MatFlowId
-     */
 
+    @ManyToOne
+    private Mat_Flow flow;
 
-    @ManyToOne  //Many locations can be used for the storing of "One" material
-    private List<MatLocation> matLocations; // can be let blank if the material is newly received
+    @ManyToOne
+    private
+    MatLocation matlocation;
 
-    @OneToMany // Suppose that one supplier can provide us several materials
-    private Msupplier msupplier;
+    @ManyToMany(mappedBy="suppliedmateriels")
+    private List<Msupplier> matsupplierlist;
 
-
-
-    public MMaterial(){}
+    public MMaterial() {
+    }
 
     public int getMat_id() {
         return mat_id;
@@ -62,40 +58,55 @@ public class MMaterial {
         this.stock = stock;
     }
 
-    public Mat_Flow getMat_Flow() {
-        return mat_Flow;
+    public Mat_Flow getFlow() {
+        return flow;
     }
 
-    public void setMat_Flow(Mat_Flow mat_Flow) {
-        this.mat_Flow = mat_Flow;
+    public void setFlow(Mat_Flow flow) {
+        this.flow = flow;
     }
 
-    public List<MatLocation> getMatLocations() {
-        return matLocations;
+    public MatLocation getMatlocation() {
+        return matlocation;
     }
 
-    public void setMatLocations(List<MatLocation> matLocations) {
-        this.matLocations = matLocations;
+    public void setMatlocation(MatLocation matlocation) {
+        this.matlocation = matlocation;
     }
 
-    public Msupplier getMsupplier() {
-        return msupplier;
+    public List<Msupplier> getMatsupplierlist() {
+        return matsupplierlist;
     }
 
-    public void setMsupplier(Msupplier msupplier) {
-        this.msupplier = msupplier;
+    public void setMatsupplierlist(List<Msupplier> matsupplierlist) {
+        this.matsupplierlist = matsupplierlist;
     }
-
-    /*Extra method that will be devlopped in the class
-    implementing the  interface MMaterialDao
-    * */
-    public void addnewlocation(MatLocation location){
-        matLocations.add(location);
-    }
-    public void removelocation(MatLocation location){
-
-        matLocations.remove(location);
-    }
-
-
 }
+
+/*    // {matname,description,stock,List<Mat_Flow> mat_flows;List<MatLocation> matLocations,List<Msupplier> msuppliers;}
+
+    @OneToMany
+    @JoinColumn(name = "mat_id")
+    private List<Mat_Flow> mat_flows;
+    *//*One flow activity can contain more than one material
+     example:One list of order from the production or reception from
+     supplier can contain  more than one different material
+     in the template this wil be mat_id
+     *//*
+
+    //Many locations can be used for the storing of "One" material. List of locations associated to single material
+    //@JoinColumn(name="locationId")
+    @ManyToOne(targetEntity = MatLocation.class)
+    @JoinColumn(name="material")
+    private List<MatLocation> matLocations=new ArrayList<>(); ; // can be let blank if the material is newly received
+
+    //Suppose that one supplier can provide us one or several materials
+    @OneToMany
+    @JoinColumn(name = "materials")
+    private  List<Msupplier> msuppliers;
+
+    public MMaterial(){}
+*/
+
+
+

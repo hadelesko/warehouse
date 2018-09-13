@@ -1,25 +1,30 @@
 package org.launchcode.warehouse.models;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.List;
 @Entity
 public class Msupplier {
-    private int id;
+    @Id
+    @GeneratedValue
+    private int supplier_id;
     private String name;
     private String email;
-    @ManyToOne
+    //@ManyToMany(mappedBy="mat_suppliers")
+    //private List<Msupplier>matsupplierlist;
+   @ManyToMany//(mappedBy = "suppliedmaterials")
     private List<MMaterial> suppliedmateriels;
+
+    @ManyToMany(mappedBy="suppliedmateriels")
+    private List<Msupplier>matsupplierlist;
 
     public Msupplier(){}
 
-
-    public int getId() {
-        return id;
+    public int getSupplier_id() {
+        return supplier_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSupplier_id(int supplier_id) {
+        this.supplier_id = supplier_id;
     }
 
     public String getName() {
@@ -45,6 +50,10 @@ public class Msupplier {
     public void setSuppliedmateriels(List<MMaterial> suppliedmateriels) {
         this.suppliedmateriels = suppliedmateriels;
     }
+
+
+
+
 
     /*Method to be implemented
      * List<MMaterial>getMateiallistByMsupplier(int supplierId)

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+
+<p th:unless="${matflows} and ${matflows.size()}">no Flow of material yet :(</p>
+
+
+<table class="table">
+
+    <tr>
+        <th>Material flow</th>
+    </tr>
+
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Dispo_quantity</th>
+        <th>Provenance</th>
+        <th>Destination</th>
+    </tr>
+    <tr th:each="flow:${flows}">
+        <!--<li><a th:href="'material/'+${mat.id}" th:object="${mat}"></a></li>-->
+        <td th:text="${flow.flowname}"></td>
+        <td th:text="${flow.description}"></td>
+        <td th:text="${flow.quantity}"></td>
+        <td th:text="${flow.provenance}"></td>
+        <td th:text="${flow.destination}"></td>
+    </tr>
+</table>
+<a href= "/addflow">Add a flow</a>
+
+</body>
+</html>

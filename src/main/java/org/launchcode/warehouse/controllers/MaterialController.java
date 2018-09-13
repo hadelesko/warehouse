@@ -1,7 +1,7 @@
 package org.launchcode.warehouse.controllers;
 
-import org.launchcode.warehouse.models.Material;
-import org.launchcode.warehouse.models.MaterialReception;
+import org.launchcode.warehouse.models.MMaterial;
+import org.launchcode.warehouse.models.Mat_Flow;
 import org.launchcode.warehouse.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,19 +18,16 @@ import javax.validation.Valid;
 
 public class MaterialController {
     @Autowired
-    private MaterialDao materialDao;
+    private MMaterialDao materialDao;
 
     @Autowired
-    private InternOrderDao internOrderDao;
+    private Mat_FlowDao mat_flowDao;
 
     @Autowired
-    private ReceptionDao receptionDao;
+    private SupplierDao supplierDao;
 
     @Autowired
-    private RetourDao retourDao;
-
-    private Matmanagement matmanagment;
-
+    private MatLocationDao matLocationDao;
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -48,15 +45,17 @@ public class MaterialController {
 
         return "material/materiallist";
     }
-
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayaddmaterial(Model model) {
+    public String displayaddmatflow(Model model) {
 
 
-        model.addAttribute("title", "Insert the material");
-        model.addAttribute("material",new Material());
-        model.addAttribute("materialReception",new MaterialReception());
-        model.addAttribute("receptions",receptionDao.findAll());
+/*        model.addAttribute("title", "Add the new flow of the material");
+        model.addAttribute("matflow",new Mat_Flow());
+        model.addAttribute("material",new MMaterial());
+        model.addAttribute("materials",materialDao.findAll());*/
+
+        model.addAttribute("title", "Add the new flow of the material");
+        model.addAttribute("material",new MMaterial());
 
         return "material/add";
     }
@@ -64,39 +63,29 @@ public class MaterialController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processaddmaterial(Model model,
-                                     @ModelAttribute @Valid Material material,
-                                     Errors errors, @RequestParam int reception_id ) {
+                                     @ModelAttribute @Valid MMaterial material,
+                                     Errors errors){
 
 
-        MaterialReception materialReception =  receptionDao.findOne(reception_id);
-        //materialReception = receptionDao.findOne(materialReception.getReceptionId());
-        material.setMaterialReception(materialReception);
-        model.addAttribute("materialReception",materialReception);
-        //model.addAttribute("reception_Id", material.getMaterialReception());
+        /*MMaterial mat = materialDao.findOne(materialId);
+        double dispo = mat.getStock() //+ flow.getFlow_quantity();
+        flow.setMmaterial(mat);
+        mat.setStock(dispo);
+        model.addAttribute("material", mat);
+        model.addAttribute("materialId", flow.getMmaterial().getMat_id());
+*/
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Insert a new Material");
 
             return "material/add";
-        }
-        else { material.setId(material.getId());
-            //materialDao.addnewmaterial(material);
+        }else{
+            material.setMat_id(material.getMat_id());
             materialDao.save(material);
             return "redirect:";
-        }
-
     }
 }
-//            if (materialDao.findOne(material.getMaterial_id()).equals(material.getMaterial_id())) {
-//                //double dpq=material.getDispo_quantity+reception.getReceivedquantity;
-                //material.updateafter();
-//                materialDao.save(material);
-//                return "redirect:material/materials";
-            //}
-            //          else{
-//                model.addAttribute("received_quantity", reception.getReceived_quantity());
-//
-//                materialDao.save(material);
-            //return "redirect:material/materials";
-            //}
+}
+
+
 
