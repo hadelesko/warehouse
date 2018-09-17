@@ -1,6 +1,8 @@
 package org.launchcode.warehouse.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +11,10 @@ public class MMaterial {
     @Id
     @GeneratedValue
     private int mat_id;
-    private String matname;
+    private String matName;
     private String description;
+    @NotNull
+    @Min(value=1, message="at least 1")
     private double stock; // Available quantity after eachflow
 
     @ManyToOne
@@ -34,12 +38,12 @@ public class MMaterial {
         this.mat_id = mat_id;
     }
 
-    public String getMatname() {
-        return matname;
+    public String getMatName() {
+        return matName;
     }
 
-    public void setMatname(String matname) {
-        this.matname = matname;
+    public void setMatName(String matName) {
+        this.matName = matName;
     }
 
     public String getDescription() {

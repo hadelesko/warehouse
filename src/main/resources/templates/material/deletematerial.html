@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${title}"> Default title</title>
+</head>
+<body>
+
+<form method="post">
+
+    <div>
+        <label th:for="matName">Material name</label>
+        <input th:text="${matName}" name="matName"/><br/>
+        <label th:for="stock">Material Stock</label>
+        <input th:text="${stock}" name="stock"/>
+        <br/>
+    </div>
+
+    <input type="submit" value="Remove material" />
+</form>
+
+</body>
+</html>

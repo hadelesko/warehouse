@@ -1,6 +1,7 @@
 package org.launchcode.warehouse.models;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ public class MatLocation {
     @Id
     @GeneratedValue
     private int locationId;
+
+    //private Date date;
 
      //One material in can be stored in more than one places in the warehouse(Chaotische Lagerungsstrategie)
      // One Material can be found in different place in the warehouse to facilitate its access
@@ -63,4 +66,12 @@ public class MatLocation {
     public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
+
+/*    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }*/
 }

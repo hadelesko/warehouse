@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <h1 th:text="${title}">Default Title</h1>
+</head>
+<body>
+
+<form method="POST">
+
+    <div th:each="mat : ${materials}" class="checkbox">
+        <input type="checkbox" name="matNames" th:value="${mat.matName}" th:id="${mat.mat_id}"/>
+        <label th:for="${mat.mat_id}" th:text="${mat.matName}"></label>
+        <input type="number" th:value="${stock}" name="stock"/>
+        <br />
+    </div>
+
+    <input type="submit" value="Remove mareial" />
+</form>
+
+</body>
+</html>

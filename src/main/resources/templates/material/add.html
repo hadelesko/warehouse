@@ -8,10 +8,10 @@
 <!--<form method="post" style="max-width:600px;" th:object="${material}" action="add">-->
 <form  method="POST" style="max-width:600px;" th:object="${material}" action="add">
     <div class="material">
-        <label th:for="matname">Name</label>
+        <label th:for="matName">Name</label>
         <div>
-            <input class="form-control" th:field="*{matname}"/>
-            <span th:errors="*{matname}" class="error"></span>
+            <input class="form-control" th:field="*{matName}"/>
+            <span th:errors="*{matName}" class="error"></span>
         </div>
     </div>
 

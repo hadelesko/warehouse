@@ -5,27 +5,27 @@
     <h1 th:text="${title}">Default Title</h1>
 </head>
 <body>
-<form  method="POST" style="max-width:600px;" th:object="${flow}" action="/mflow/addflow">
-    <div class="flow">
+<form method="POST" style="max-width:600px;" th:object="${flow}" action="/mflow/addflow">
+<!--    <div class="flow">
         <label th:for="date">Date</label>
         <div>
-            <input type ="date" class="form-control" th:field="*{date}"/>
+            <input type="date" class="form-control" th:field="*{date}" th:value="${date}"/>
             <span th:errors="*{date}" class="error"></span>
         </div>
-    </div>
+    </div>-->
 
-    <div class="flow">
-        <label th:for="flowname">Name</label>
+<!--    <div class="flow">
+        <label th:for="flowName">Name</label>
         <div>
-            <input class="form-control" th:field="*{flowname}"/>
-            <span th:errors="*{flowname}" class="error"></span>
+            <input class="form-control"th:field="*{flowName}"/>
+           <span th:errors="*{flowName}" class="error"></span>
         </div>
-    </div>
+    </div>-->
 
 
     <div class="form-group">
-        <label th:for="flowname">Select the flow name</label>
-        <select th:field="*{flowname}">
+        <label th:for="flowName">Select the flow name</label>
+        <select th:field="*{flowName}">
             <option th:value="Retour" >Retour</option>
             <option th:value="Reception">Reception</option>
             <option th:value="Order">Order</option>
@@ -71,7 +71,7 @@
         <label th:for="material">Material</label>
         <select name="materialId">
             <option th:each="material : ${materials}"
-                    th:text="${material.matname}"
+                    th:text="${material.matName}"
                     th:value="${material.mat_id}">
             </option>
         </select>

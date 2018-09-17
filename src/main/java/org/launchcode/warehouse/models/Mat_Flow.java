@@ -1,8 +1,10 @@
 package org.launchcode.warehouse.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +13,9 @@ public class Mat_Flow {
     //Mat_Flow={Reception, Order, Retour, Delivery, Relocation, Pick}
     // [flow_id, Date date,flow_quantity, string description, flowname,
     // provenance, destination,MMaterial material, List<MatLocation>matLocations
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+/*    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "mm/DD/yyyy")
+    private Date date;*/
     @Id
     @GeneratedValue
     private int flow_id; // the flow id
@@ -23,8 +26,8 @@ public class Mat_Flow {
     private double flow_quantity;
     @NotNull
     private String description;
-
-    private String flowname;// option in template={Recepetion, Retour, Order}
+    @NotNull
+    private String flowName;// option in template={Recepetion, Retour, Order}
 
     /*from warehouse and material location for the intern
     order for the production and supplier for the reception from outside of the company
@@ -64,14 +67,6 @@ public class Mat_Flow {
     public Mat_Flow() {
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public int getFlow_id() {
         return flow_id;
     }
@@ -96,12 +91,12 @@ public class Mat_Flow {
         this.description = description;
     }
 
-    public String getFlowname() {
-        return flowname;
+    public String getFlowName() {
+        return flowName;
     }
 
-    public void setFlowname(String flowname) {
-        this.flowname = flowname;
+    public void setFlowName(String flowName) {
+        this.flowName = flowName;
     }
 
     public String getProvenance() {
